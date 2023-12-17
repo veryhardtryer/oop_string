@@ -1,0 +1,33 @@
+if(UNIX AND NOT APPLE)
+  set(CMAKE_CXX_COMPILER "g++")
+elseif(WIN32)
+  set(CMAKE_CXX_COMPILER "cl")
+else()
+  message("Unknown platform")
+endif()
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_BUILD_TYPE Debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+  message("Debug on")
+  add_definitions(-D_DEBUG)
+
+  if(UNIX AND NOT APPLE)
+    add_compile_options(-g -Wall -Wextra)
+  elseif(WIN32)
+    add_compile_options(-Zi -Wall -W4)
+  endif()
+
+elseif(CMAKE_BUILD_TYPE STREQUAL Release)
+  add_definitions(-DNDEBUG)
+  message("Release on")
+
+  if(UNIX AND NOT APPLE)
+    add_compile_options(-Wall -Wextra -O3)
+  elseif(WIN32)
+    add_compile_options(-Wall -W4 -O3)
+  endif()
+else()
+  message("Config doesn't selected")
+endif()

@@ -1,0 +1,5 @@
+if(UNIX AND NOT APPLE)
+  add_compile_options(-Werror)
+elseif(WIN32)
+  add_compile_options(-WX)
+endif()
