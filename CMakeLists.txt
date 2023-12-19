@@ -7,11 +7,11 @@ include(cmake/Werror.cmake)
 project(string_lab)
 
 set(HEADERS
-  include/string.hpp
+  include/lab_string.hpp
 )
 
 set(SOURCES
-  src/string.cpp
+  src/lab_string.cpp
 )
 
 add_library(${CMAKE_PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
