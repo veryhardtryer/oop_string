@@ -13,7 +13,7 @@ class String {
  public:
   String();
   explicit String(size_t size);
-  explicit String(const char* ptr);
+  String(const char* ptr);
   
   String(const String& other);
   String& operator=(const String& other);
@@ -28,7 +28,7 @@ class String {
   const char& operator[](size_t index) const;
   char& operator[](size_t index);
 
-  friend std::ostream& operator<<(std::ostream& stream, const String& str);
+  friend std::ios& operator<<(std::ios& stream, const String& str);
 
   ~String();
 
@@ -60,5 +60,6 @@ String GenerateRandom(size_t size);
 bool operator<(const String& a, const String& b);
 bool operator>(const String& a, const String& b);
 bool operator==(const String& a, const String& b);
+bool operator!=(const String& a, const String& b);
 
 }

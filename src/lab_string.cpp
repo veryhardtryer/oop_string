@@ -70,12 +70,13 @@ String::~String() {
   delete[] data_;
 }
 
-std::ostream& operator<<(std::ostream& stream, const String& str) {
+std::ios& operator<<(std::ios& stream, const String& str) {
   stream << str.Data();
   return stream;
 }
 
 String GenerateRandom(size_t size) {
+  srand(static_cast<unsigned int>(std::time(0)));
   String str(size);
   for(size_t i = 0; i < size; ++i) {
     str[i] = std::rand() % 26 + 97;
@@ -103,6 +104,10 @@ bool operator==(const String& a, const String& b) {
     if(a[i] != b[i]) return false;
   }
   return true;
+}
+
+bool operator!=(const String& a, const String& b) {
+  return !(a == b);
 }
 
 #ifdef __GNUC__
