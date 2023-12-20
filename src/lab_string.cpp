@@ -2,19 +2,25 @@
 
 #include <cstring>
 #include <memory>
+#include <chrono>
+
+#include <ostream>
 
 namespace stdlike {
 
 void String::Construct(const char* ptr) {
   size_t size = strlen(ptr);
-  data_ = new char[size];
+  data_ = new char[size+1];
+  data_[size] = '\0';
   std::memcpy(data_, ptr, size);
 }
 
 String::String() : data_(nullptr) {}
 
 String::String(size_t size) {
-  data_ = new char[size];
+  data_ = new char[size+1];
+  memset(data_, 1, sizeof(char) * size);
+  data_[size] = '\0';
 }
 
 String::String(const char* ptr) {
@@ -52,6 +58,7 @@ String& String::operator=(String&& other) {
 }
 
 size_t String::Size() const {
+  if(!data_) return 0;
   return strlen(data_);
 }
 
@@ -70,13 +77,13 @@ String::~String() {
   delete[] data_;
 }
 
-std::ios& operator<<(std::ios& stream, const String& str) {
-  stream << str.Data();
+std::ostream& operator<<(std::ostream& stream, const String& str) {
+  const char* c_str = str.Data();
+  stream << c_str;
   return stream;
 }
 
 String GenerateRandom(size_t size) {
-  srand(static_cast<unsigned int>(std::time(0)));
   String str(size);
   for(size_t i = 0; i < size; ++i) {
     str[i] = std::rand() % 26 + 97;

@@ -28,7 +28,7 @@ class String {
   const char& operator[](size_t index) const;
   char& operator[](size_t index);
 
-  friend std::ios& operator<<(std::ios& stream, const String& str);
+  friend std::ostream& operator<<(std::ostream& stream, const String& str);
 
   ~String();
 
@@ -52,7 +52,7 @@ class String {
   void Construct(const char* ptr);
 
  private:
-  char* data_;
+  char* data_{nullptr};
 };
 
 String GenerateRandom(size_t size);
